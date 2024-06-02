@@ -31,16 +31,4 @@ export class MongoUpdateUserRepository implements IUpdateUserRepository {
       ...rest,
     };
   }
-
-  // async getUsers(): Promise<User[]> {
-  //   const users = await MongoClient.db
-  //     .collection<Omit<User, "id">>("users")
-  //     .find({})
-  //     .toArray();
-
-  //   return users.map(({ _id, ...rest }) => ({
-  //     ...rest,
-  //     id: _id.toHexString(),
-  //   }));
-  // }
 }

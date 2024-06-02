@@ -1,8 +1,8 @@
 import { User } from "../../models/users";
-import { HttpResponse } from "../protocols";
+import { HttpRequest, HttpResponse } from "../protocols";
 
 export interface IUpdateUsersController {
-  handle(): Promise<HttpResponse<User>>;
+  handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<User>>;
 }
 
 export interface IUpdateUserRepository {
