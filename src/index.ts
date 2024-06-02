@@ -18,7 +18,7 @@ const main = async () => {
     const controller = new GetUsersController(repository);
     const { body, statusCode } = await controller.handle();
 
-    res.send(body).status(statusCode);
+    res.status(statusCode).send(body);
   });
 
   app.post("/user", async (req, res) => {
@@ -26,7 +26,7 @@ const main = async () => {
     const controller = new CreateUserController(repository);
     const { body, statusCode } = await controller.handle({ body: req.body });
 
-    res.send(body).status(statusCode);
+    res.status(statusCode).send(body);
   });
 
   const port = process.env.PORT || 8000;

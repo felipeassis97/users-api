@@ -1,3 +1,4 @@
+import validator from "validator";
 import { User } from "../../models/users";
 import { HttpRequest, HttpResponse } from "../protocols";
 import {
@@ -13,13 +14,30 @@ export class CreateUserController implements ICreateUserController {
     httpRequest: HttpRequest<CreateUserParams>
   ): Promise<HttpResponse<User>> {
     try {
-      if (!httpRequest.body) {
+      const requiredFields = ["firstname", "lastname", "email", "password"];
+
+      //Validate required fields
+      for (const field of requiredFields) {
+        if (!httpRequest?.body?.[field as keyof CreateUserParams]?.length) {
+          return {
+            statusCode: 400,
+            body: `Field ${field} is required`,
+          };
+        }
+      }
+
+      //Validate e-mail
+      const isEmailValid = validator.isEmail(httpRequest?.body?.email ?? "");
+      if (!isEmailValid) {
         return {
           statusCode: 400,
-          body: "Body request cannot be empty!",
+          body: "E-mail invalid format",
         };
       }
-      const user = await this.createUserRepository.createUser(httpRequest.body);
+
+      const user = await this.createUserRepository.createUser(
+        httpRequest.body!
+      );
 
       return {
         statusCode: 201,
