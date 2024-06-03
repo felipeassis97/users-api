@@ -16,7 +16,7 @@ export class UpdateUserController implements IUpdateUsersController {
       if (!id) {
         return {
           statusCode: 400,
-          body: "Missing user id",
+          body: "Error: Missing user id",
         };
       }
       const allowedFieldsToUpdate = ["firstname", "lastname", "password"];
@@ -27,7 +27,7 @@ export class UpdateUserController implements IUpdateUsersController {
       if (someFieldNotAllowedToUpdate) {
         return {
           statusCode: 400,
-          body: "Some received field is not allowed.",
+          body: "Error: Some received field is not allowed.",
         };
       }
 
@@ -39,7 +39,7 @@ export class UpdateUserController implements IUpdateUsersController {
     } catch (error) {
       return {
         statusCode: 500,
-        body: "Something went wrong.",
+        body: `${error}`,
       };
     }
   }

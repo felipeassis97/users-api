@@ -21,7 +21,7 @@ export class CreateUserController implements ICreateUserController {
         if (!httpRequest?.body?.[field as keyof CreateUserParams]?.length) {
           return {
             statusCode: 400,
-            body: `Field ${field} is required`,
+            body: `Error: Field ${field} is required`,
           };
         }
       }
@@ -31,7 +31,7 @@ export class CreateUserController implements ICreateUserController {
       if (!isEmailValid) {
         return {
           statusCode: 400,
-          body: "E-mail invalid format",
+          body: "Error: E-mail invalid format",
         };
       }
 
@@ -46,7 +46,7 @@ export class CreateUserController implements ICreateUserController {
     } catch (error) {
       return {
         statusCode: 500,
-        body: "Error when create user",
+        body: `${error}`,
       };
     }
   }
